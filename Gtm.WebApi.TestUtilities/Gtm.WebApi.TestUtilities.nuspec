@@ -1,0 +1,29 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Gtm.WebApi.TestUtilities</id>
+    <version>2.1.0</version>
+    <title>Gtm.WebApi.TestUtilities</title>
+    <authors>John Keller</authors>
+    <owners>It's Greek To Me, Inc.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Class library for writing tests for web APIs.</description>
+    <releaseNotes>
+      v2.1.0: Added ability to accept JSON response more conveniently, as well as supporting non-OK status codes with WebTest.
+      v2.0.2: Fixed bug so shorter expected arrays than actual arrays work.
+      v2.0.1: Fixed bug where JSON arrays were assumed to be objects rather than simple types.
+      v2.0.0: Renamed the extensions class to use AssertJson static class and creating WebTestBase class.
+    </releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <dependencies>
+      <dependency id="Gtm.Common" version="2.14" />
+      <dependency id="MSTest.TestAdapter" version="1.1.18" />
+      <dependency id="MSTest.TestFramework" version="1.1.18" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Gtm.WebApi.TestUtilities.XML" target="lib/Net40" />
+    <file src="bin\Release\Gtm.WebApi.TestUtilities.dll" target="lib/Net40" />
+    <file src="bin\Release\Gtm.WebApi.TestUtilities.pdb" target="lib/Net40" />
+  </files>
+</package>
