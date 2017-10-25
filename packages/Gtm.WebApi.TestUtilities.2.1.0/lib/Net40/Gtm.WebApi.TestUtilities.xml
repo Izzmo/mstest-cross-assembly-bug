@@ -1,0 +1,681 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gtm.WebApi.TestUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:Gtm.WebApi.TestUtilities.Exceptions.EmptyJsonValueException">
+            <summary>
+            Thrown when a value was missing at a specific location while parsing the JSON.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.Exceptions.EmptyJsonValueException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.Exceptions.EmptyJsonValueException"/> class.
+            </summary>
+            <param name="path">Path to the location of the empty value.</param>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+            <summary>
+            Exception thrown when an assertion fails on JSON validation.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException"/> class.
+            </summary>
+            <param name="path">The path within the JSON that failed during assertion.</param>
+            <param name="message">Message for the exception.</param>
+            <param name="innerException">Optional inner exception.</param>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException.Path">
+            <summary>
+            Gets the path within the JSON that failed during assertion.
+            </summary>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+            <summary>
+            An exception to be thrown when JSON did not conform to the expected structure.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException"/> class.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException.Path">
+            <summary>
+            Gets the path of the malformed structure.
+            </summary>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.AssertJson">
+            <summary>
+            Provides convenient extension method to assert that a JSON string contains
+            what was expected.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.AssertJson.Matches(System.Object,System.String,System.Func{System.Object,System.Boolean}[])">
+             <summary>
+               Asserts that the string in the form of JSON contains the structure and values
+               of what is expected, giving option for external asserters.
+             </summary>
+             <param name="expected">An object of what is expected.</param>
+             <param name="actualJson">JSON of what needs verified.</param>
+             <param name="valueAsserters">
+               Delegates accepting the actual value encountered and returns whether assertion should succeed.
+             </param>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+               Thrown if <paramref name="actualJson"/> does not match <paramref name="expected"/>.
+             </exception>
+             <remarks>
+               The <paramref name="expected"/> parameter is of type <see cref="T:System.Object"/> so
+               that it safely accepts anonymous types.  This allows for clean test code.
+             </remarks>
+             <example>
+               Below is an example of how the optional external asserters can be used.
+               <code>
+                 // The below string a would usually be a string from an WebResponse.
+                 var a = @"{""CustomerId"":123,""Name"":""Non-empty string""}";
+            
+                 var e = new
+                 {
+                    CustomerId = "{0}",
+                    FirstName = "{1}"
+                 };
+            
+                 a.Matches(e, a => (int)a > 0, a => !string.IsNullOrEmpty((string)a));
+               </code>
+             </example>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.AssertJson.Matches(System.Object,Gtm.WebApi.TestUtilities.JsonValue,System.Func{System.Object,System.Boolean}[])">
+             <summary>
+               Asserts that the <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> contains the structure and values
+               of what is expected, giving option for external asserters.
+             </summary>
+             <param name="expected">An object of what is expected.</param>
+             <param name="actualJson">JSON of what needs verified.</param>
+             <param name="valueAsserters">
+               Delegates accepting the actual value encountered and returns whether assertion should succeed.
+             </param>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+               Thrown if <paramref name="actualJson"/> does not match <paramref name="expected"/>.
+             </exception>
+             <remarks>
+               The <paramref name="expected"/> parameter is of type <see cref="T:System.Object"/> so
+               that it safely accepts anonymous types.  This allows for clean test code.
+             </remarks>
+             <example>
+               Below is an example of how the optional external asserters can be used.
+               <code>
+                 // The below string a would usually be a string from an WebResponse.
+                 var a = new JsonValue(@"{""CustomerId"":123,""Name"":""Non-empty string""}");
+            
+                 var e = new
+                 {
+                    CustomerId = "{0}",
+                    FirstName = "{1}"
+                 };
+            
+                 a.Matches(e, a => (int)a > 0, a => !string.IsNullOrEmpty((string)a));
+               </code>
+             </example>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.AssertJson.Matches(System.Object[],System.Collections.Generic.IEnumerable{Gtm.WebApi.TestUtilities.JsonValue},System.Func{System.Object,System.Boolean}[])">
+            <summary>
+              Asserts that the <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/>
+              contains the structure and values of what is expected, giving option for external asserters.
+            </summary>
+            <param name="expected">An object of what is expected.</param>
+            <param name="actualJsonList">JSON of what needs verified.</param>
+            <param name="valueAsserters">
+              Delegates accepting the actual value encountered and returns whether assertion should succeed.
+            </param>
+            <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+              Thrown if <paramref name="actualJsonList"/> does not match <paramref name="expected"/>.
+            </exception>
+            <remarks>
+              The <paramref name="expected"/> parameter is of type <see cref="T:System.Object"/> so
+              that it safely accepts anonymous types.  This allows for clean test code.
+            </remarks>
+            <seealso cref="M:Gtm.WebApi.TestUtilities.AssertJson.Matches(System.Object,Gtm.WebApi.TestUtilities.JsonValue,System.Func{System.Object,System.Boolean}[])"/>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.WebTestBase">
+            <summary>
+            Provides an interface for convenient testing of web endpoints.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.#ctor(System.Uri,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.WebTestBase"/> class with the given <paramref name="baseUrl"/> and <paramref name="headers"/>.
+            </summary>
+            <param name="baseUrl">The root URL to be used for all requests.</param>
+            <param name="headers">The headers to be used for all requests.</param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="baseUrl"/> is not an absolute URI.  That is, <c><paramref name="baseUrl"/>.<see cref="P:System.Uri.IsAbsoluteUri"/> == false</c>.
+            </exception>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl">
+            <summary>
+            Gets the URL that will serve as the root for all requests.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers">
+            <summary>
+            Gets the headers to be used for all requests.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.NewId">
+            <summary>
+            Generate and return a new unique identifier.
+            </summary>
+            <returns>
+            A newly generated identifier.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.AppendUrl(System.String)">
+            <summary>
+            Appends the given <paramref name="relativeUrl"/> to the <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.
+            </summary>
+            <param name="relativeUrl">Url to append.</param>
+            <returns>
+            A new <see cref="T:System.Uri"/> with the <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/> and <paramref name="relativeUrl"/> combined.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.Get(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a GET request and returns the response as a <see cref="T:System.Net.Http.HttpResponseMessage"/> instance.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.GetJson(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a GET request and returns the response (expected as JSON) as a <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> instance.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response in JSON.
+            </returns>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if resulting <see cref="P:System.Net.Http.HttpResponseMessage.StatusCode"/> is not <see cref="F:System.Net.HttpStatusCode.OK"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.GetJson(System.String,System.Net.HttpStatusCode,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a GET request and returns the response (expected as JSON) as a <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> instance.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="expectedStatusCode">The resulting code expected.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response in JSON.
+            </returns>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if resulting <see cref="P:System.Net.Http.HttpResponseMessage.StatusCode"/> is not <see cref="F:System.Net.HttpStatusCode.OK"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.PostJson(System.String,System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a POST request and returns the response.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="body">The payload for the request as text.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.PostJson(System.String,System.Object,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a POST request and returns the response.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="body">The payload for the request as an object, convenient for anonymous types.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.PostJson(System.String,System.String,System.Net.HttpStatusCode,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a POST request and returns the response.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="body">The payload for the request as text.</param>
+            <param name="expectedStatusCode">The resulting code expected.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response.
+            </returns>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if resulting <see cref="P:System.Net.Http.HttpResponseMessage.StatusCode"/> is not <paramref name="expectedStatusCode"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTestBase.PostJson(System.String,System.Object,System.Net.HttpStatusCode,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Executes a POST request and returns the response.
+            </summary>
+            <param name="relativeUrl">The URL to be appended to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.BaseUrl"/>.</param>
+            <param name="body">The payload for the request as an object, convenient for anonymous types.</param>
+            <param name="expectedStatusCode">The resulting code expected.</param>
+            <param name="additionalHeaders">Headers to be used in addition to <see cref="P:Gtm.WebApi.TestUtilities.WebTestBase.Headers"/>.</param>
+            <returns>
+            The response.
+            </returns>
+            <exception cref="T:Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException">
+            Thrown if resulting <see cref="P:System.Net.Http.HttpResponseMessage.StatusCode"/> is not <paramref name="expectedStatusCode"/>.
+            </exception>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.JsonAsserter">
+            <summary>
+              Object to help assert that a string of expected JSON value(s) matches that
+              of what is expected.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonAsserter.#ctor(System.Func{System.Object,System.Boolean}[])">
+             <summary>
+             Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.JsonAsserter"/> class.
+             </summary>
+             <param name="valueAsserters">External asserters that can be used for asserting values match what was expected.</param>
+             <example>
+               Below is an example of how the optional external asserters can be used.
+               <code>
+                 // The below string a would usually be a string from an WebResponse.
+                 var a = @"{""CustomerId"":123,""Name"":""Non-empty string"",""ExistingValue"":true}";
+            
+                 var e = new
+                 {
+                    CustomerId = "{0}",
+                    FirstName = "{1}",
+                    ExistingValue = "{}" // Empty indicates no special asserter, just assert property exists.
+                 };
+            
+                 var asserter = new JsonAsserter(a => (int)a > 0, a => !string.IsNullOrEmpty((string)a));
+                 asserter.AssertMatchesExpected(a, e);
+               </code>
+             </example>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonAsserter.AssertMatchesExpected(Gtm.WebApi.TestUtilities.JsonValue,Gtm.WebApi.TestUtilities.JsonValue)">
+             <summary>
+               Asserts that the <paramref name="expected"/> object matches the JSON object in <paramref name="actual"/>.
+             </summary>
+             <param name="actual">The actual JSON to match.</param>
+             <param name="expected">The expected object.</param>
+             <exception cref="T:System.ArgumentNullException">
+               Thrown if <paramref name="actual"/> or <paramref name="expected"/> are <c>null</c>.
+             </exception>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+               Thrown if <paramref name="actual"/> does not match <paramref name="expected"/>.
+             </exception>
+             <example>
+               The below example shows how this method could be used in a test class, utilizing anonymous types for C# readability.
+               <code>
+                 // The below string a would usually be a string from an WebResponse.
+                 var a = @"{""CustomerId"":123,""FirstName"":""John"",""LastName"":""Doe"",""PhoneNumbers"":[{""Type"":""Work"",""Value"":""1234567890""}]}";
+            
+                 var e = new
+                 {
+                    CustomerId = 123,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumbers = new[]
+                    {
+                       new
+                       {
+                          Type = "Work",
+                          Value = "1234567890"
+                       }
+                    }
+                 };
+            
+                 var asserter = new JsonAsserter();
+                 asserter.AssertMatchesExpected(new JsonValue(a), new JsonValue(e));
+               </code>
+             </example>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonAsserter.AssertMatchesExpected(System.Collections.Generic.IEnumerable{Gtm.WebApi.TestUtilities.JsonValue},System.Collections.Generic.IEnumerable{Gtm.WebApi.TestUtilities.JsonValue})">
+            <summary>
+              Asserts that the <paramref name="expected"/> objects matches the JSON values in <paramref name="actual"/>.
+            </summary>
+            <param name="actual">The actual JSON objects to match.</param>
+            <param name="expected">The expected objects.</param>
+            <exception cref="T:System.ArgumentNullException">
+              Thrown if <paramref name="actual"/> or <paramref name="expected"/> are <c>null</c>.
+            </exception>
+            <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonAssertFailedException">
+              Thrown if <paramref name="actual"/> does not match <paramref name="expected"/>.
+            </exception>
+            <seealso cref="M:Gtm.WebApi.TestUtilities.JsonAsserter.AssertMatchesExpected(Gtm.WebApi.TestUtilities.JsonValue,Gtm.WebApi.TestUtilities.JsonValue)"/>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.JsonValue">
+            <summary>
+            Provides convenient class for navigating JSON.
+            </summary>
+            <remarks>
+            The usage of this class is for when the caller knows the expected
+            format of the JSON and provides convenient navigation.  The methods
+            such as <see cref="P:Item(int)"/>, <see cref="P:Item(string)"/>,
+            and <see cref="M:Gtm.WebApi.TestUtilities.JsonValue.As``1"/> /// allow for short syntax to get to a particular location.
+            If the assumption /// made on the format does not hold up,
+            then <see cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException"/> is thrown.
+            </remarks>
+        </member>
+        <member name="F:Gtm.WebApi.TestUtilities.JsonValue.RootPath">
+            <summary>
+            The constant used to indicate the root of the JSON string.
+            </summary>
+        </member>
+        <member name="F:Gtm.WebApi.TestUtilities.JsonValue.EmptyValue">
+            <summary>
+            Represents an empty JSON object.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> class.
+            </summary>
+            <param name="value">The JSON value.</param>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> class.
+            </summary>
+            <param name="value">The value to be serialized into JSON.</param>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.Path">
+            <summary>
+            Gets the path to this value from the original JSON.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.Value">
+            <summary>
+            Gets the value as just an <see cref="T:System.Object"/>.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.IsNull">
+            <summary>
+            Gets a value indicating whether the value is null.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.IsEmpty">
+            <summary>
+            Gets a value indicating whether the value represents an empty object.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.Item(System.String)">
+            <summary>
+            Indexer for a <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> when representing a JSON object.
+            </summary>
+            <param name="property">Name of the property.</param>
+            <returns>
+            The value for the given <paramref name="property"/>.
+            </returns>
+            <remarks>
+            Equivalent to <see cref="M:Gtm.WebApi.TestUtilities.JsonValue.GetValue(System.String)"/> but provided for shorter syntax when chaining.
+            </remarks>
+            <seealso cref="M:Gtm.WebApi.TestUtilities.JsonValue.GetValue(System.String)"/>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValue.Item(System.Int32)">
+            <summary>
+            Indexer for a <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> when representing a JSON array.
+            </summary>
+            <param name="index">Index of the desired object.</param>
+            <returns>
+            The value at the given <paramref name="index"/>.
+            </returns>
+            <remarks>
+            Equivalent to <see cref="M:Gtm.WebApi.TestUtilities.JsonValue.GetObject(System.Int32)"/> but provided for shorter syntax when chaining.
+            </remarks>
+            <seealso cref="M:Gtm.WebApi.TestUtilities.JsonValue.GetObject(System.Int32)"/>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.op_Implicit(Gtm.WebApi.TestUtilities.JsonValue)~System.String">
+            <summary>
+            Allows for implicit conversion from <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> to a string.
+            </summary>
+            <param name="value">The value to convert.</param>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GenerateJson(System.Object)">
+            <summary>
+            Provides method to convert an object to it's JSON string representation.
+            </summary>
+            <param name="value">The value for which to generate the JSON.</param>
+            <returns>
+            A JSON-formatted <see cref="T:System.String"/> of the <paramref name="value"/>.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.ToString">
+            <summary>
+            Overrides <see cref="M:System.Object.ToString"/> to return JSON representation.
+            </summary>
+            <returns>
+            Returns the value in a JSON representation.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetHashCode">
+            <summary>
+            Overrides <see cref="M:System.Object.GetHashCode"/> to be calculated
+            from the JSON string representation.
+            </summary>
+            <returns>
+            A hash code.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetTypeOfValue">
+            <summary>
+            Gets the type of the value.
+            </summary>
+            <returns>
+            The type of the value.
+            </returns>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.As``1">
+            <summary>
+            Provides convenient conversion to a specific type.
+            </summary>
+            <typeparam name="T">Target type of the result.</typeparam>
+            <returns>
+            Returns the value as type <typeparamref name="T"/>.
+            </returns>
+            <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+            Thrown if the value cannot be converted to the target type of <typeparamref name="T"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetValue(System.String)">
+             <summary>
+             Returns an instance of <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> for the given path.
+             </summary>
+             <param name="path">The path of the desired value.</param>
+             <returns>
+             Returns a value for the given <paramref name="path"/>.
+             </returns>
+             <exception cref="T:System.ArgumentNullException">
+             Thrown if <paramref name="path"/> is <c>null</c>.
+             </exception>
+             <exception cref="T:System.ArgumentException">
+             Thrown if <paramref name="path"/> is empty or incorrectly formatted.
+             </exception>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+             Thrown if the value cannot be converted to a JSON object or if <paramref name="path"/> does not exist.
+             </exception>
+             <remarks>
+             This method is to be used when you expect this instance to
+             represent a JSON object.  That is, it is not an array or value, but an object of the form:
+             <code>
+                var v = new JsonValue(@"
+                   {
+                      ""Name"":""John Doe"",
+                      ""Value"":123
+                   }");
+            
+                Assert.AreEqual(123, v.GetValue("Value")).
+             </code>
+             </remarks>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetValue``1(System.String)">
+            <summary>
+            Convenient method to return a value for the given property.
+            </summary>
+            <typeparam name="T">Type of the value to return.</typeparam>
+            <param name="property">Name of the property for which to get the value.</param>
+            <returns>
+            The value of property <paramref name="property"/> as type <typeparamref name="T"/>.
+            </returns>
+            <seealso cref="M:Gtm.WebApi.TestUtilities.JsonValue.GetValue(System.String)"/>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetObject(System.Int32)">
+             <summary>
+             Returns an instance of <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> for the given index of an array.
+             </summary>
+             <param name="index">The index of the array.</param>
+             <returns>
+             Returns a value for the given <paramref name="index"/>.
+             </returns>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+             Thrown if the value cannot be converted to a JSON array.
+             </exception>
+             <exception cref="T:System.ArgumentOutOfRangeException">
+             Thrown if <paramref name="index"/> exceeds the number of elements within the array.
+             </exception>
+             <remarks>
+             This method is to be used when you expect this instance to
+             represent a JSON array of objects.  That is, it is not an object or value, but an array of the form:
+             <code>
+                var v = new JsonValue(@"
+                   [
+                      {
+                         ""Name"":""John Doe"",
+                         ""Value"":1
+                      },
+                      {
+                         ""Name"":""Jim Smith"",
+                         ""Value"":2
+                      }
+                   ]");
+            
+                Assert.IsNotNull(v.GetObject(1)).
+             </code>
+             </remarks>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.GetList">
+             <summary>
+             Returns a list of <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> represented by this value.
+             </summary>
+             <returns>
+             Returns a <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for the value.
+             </returns>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+             Thrown if the value cannot be converted to a JSON array.
+             </exception>
+             <remarks>
+             This method is to be used when you expect this instance to
+             represent a JSON array of objects.  That is, it is not an object or value, but an array of the form:
+             <code>
+                var v = new JsonValue(@"
+                   [
+                      {
+                         ""Name"":""John Doe"",
+                         ""Value"":1
+                      },
+                      {
+                         ""Name"":""Jim Smith"",
+                         ""Value"":2
+                      }
+                   ]");
+            
+                Assert.AreEqual(2, v.GetList().Count).
+             </code>
+             </remarks>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValue.FindAll(System.Predicate{Gtm.WebApi.TestUtilities.JsonValue})">
+             <summary>
+             Returns a list of <see cref="T:Gtm.WebApi.TestUtilities.JsonValue"/> represented by this value but with
+             the given <paramref name="predicate"/> applied.
+             </summary>
+             <returns>
+             Returns a <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> for the value.
+             </returns>
+             <exception cref="T:Gtm.WebApi.TestUtilities.Exceptions.JsonFormatException">
+             Thrown if the value cannot be converted to a JSON array.
+             </exception>
+             <remarks>
+             This method is to be used when you expect this instance to
+             represent a JSON array of objects.  That is, it is not an object or value, but an array of the form:
+             <code>
+                var v = new JsonValue(@"
+                   [
+                      {
+                         ""Name"":""John Doe"",
+                         ""Value"":1
+                      },
+                      {
+                         ""Name"":""Jim Smith"",
+                         ""Value"":2
+                      }
+                   ]");
+            
+                Assert.AreEqual(1, v.GetObjects(o => o["Value"] == 2).Count).
+             </code>
+             </remarks>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.JsonValueAsserters">
+            <summary>
+            Common value asserters to use in verifying JSON values.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.JsonValueAsserters.IsNotNullOrEmpty">
+            <summary>
+            Gets the common asserter that ensures a string is not null or empty.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.JsonValueAsserters.IsAtLeast(System.DateTimeOffset)">
+            <summary>
+            Common asserter that ensures a <see cref="T:System.DateTimeOffset"/> is greater than or equal to a given time.
+            </summary>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.WebTest">
+            <summary>
+            Provides a base class for convenient testing of web endpoints.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTest.#ctor(System.Uri,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Gtm.WebApi.TestUtilities.WebTest"/> class.
+            </summary>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTest.Get(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Gtm.WebApi.TestUtilities.WebTest.PostJson(System.String,System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.Net.HttpRequestHeader,System.String}})">
+            <inheritdoc/>
+        </member>
+        <member name="T:Gtm.WebApi.TestUtilities.WebTestHeaders">
+            <summary>
+            Contains commonly used headers.
+            </summary>
+            <remarks>
+            This class provides convenient uses for the <c>headers</c> parameters
+            in <see cref="T:Gtm.WebApi.TestUtilities.WebTest"/>.
+            </remarks>
+        </member>
+        <member name="F:Gtm.WebApi.TestUtilities.WebTestHeaders.CmsAuthorizationUser">
+            <summary>
+            The name of the authenticated user used for <see cref="P:Gtm.WebApi.TestUtilities.WebTestHeaders.CmsAuthorizationHeader"/>.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.WebTestHeaders.CmsAuthorizationHeader">
+            <summary>
+            Gets an authentication header that provides convenient use when testing
+            CMS-authenticated endpoints with <see cref="T:Gtm.WebApi.TestUtilities.WebTest"/>.
+            </summary>
+        </member>
+        <member name="P:Gtm.WebApi.TestUtilities.WebTestHeaders.Headers">
+            <summary>
+            Gets a dictionary of headers for convenient use with <see cref="T:Gtm.WebApi.TestUtilities.WebTest"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

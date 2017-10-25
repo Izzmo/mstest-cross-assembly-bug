@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gtm.TestUtilities</name>
+    </assembly>
+    <members>
+        <member name="T:Gtm.TestUtilities.AssertArgumentOutOfRangeException">
+            <summary>
+            A helper class to check that the correct parameter is being caught on
+            an <see cref="T:System.ArgumentOutOfRangeException"/>, or inherited type.
+            </summary>
+        </member>
+        <member name="T:Gtm.TestUtilities.AssertArgumentNullException">
+            <summary>
+            A helper class to check that the correct parameter is being caught on an <c>ArgumentException</c>, or inherited type.
+            </summary>
+        </member>
+        <member name="T:Gtm.TestUtilities.AssertArgumentException">
+            <summary>
+            A helper class to check that the correct parameter is being caught on an <c>ArgumentException</c>, or inherited type.
+            </summary>
+        </member>
+        <member name="T:Gtm.TestUtilities.AssertException`1">
+            <summary>
+            A helper class to check that the correct parameter is being caught on an <c>ArgumentException</c>, or inherited type.
+            </summary>
+            <typeparam name="T">An <see cref="T:System.ArgumentException"/> or inherited type, such as <see cref="T:System.ArgumentNullException"/>.</typeparam>
+        </member>
+        <member name="M:Gtm.TestUtilities.AssertException`1.IsThrownForParameter(System.Action,System.String)">
+            <summary>
+            Verifies that an <c>ArgumentException</c> is thrown, then checks that the supplied parameter names match.
+            Will raise an <code>Assert.Fail()</code> if no exception is caught.
+            </summary>
+            <param name="codeToPerform">The action containing the code to execute.</param>
+            <param name="paramName">The parameter name to match in the caught ArgumentException.</param>
+            <example>
+              <code>
+                 AssertException&lt;ArgumentException&gt;.IsThrownForParameter(() => {
+                   throw new ArgumentException("Some message.", "testParam");
+                 }, "testParam");
+              </code>
+            </example>
+        </member>
+        <member name="M:Gtm.TestUtilities.AssertException`1.IsThrownForParameter(System.Func{System.Threading.Tasks.Task},System.String)">
+            <summary>
+            Asynchronous version of <see cref="M:Gtm.TestUtilities.AssertException`1.IsThrownForParameter(System.Action,System.String)"/>.
+            </summary>
+            <param name="codeToPerform">The action containing the code to execute.</param>
+            <param name="paramName">The parameter name to match in the caught ArgumentException.</param>
+            <example>
+              <code>
+                 Func&lt;Task&gt; testFunction = () =>
+                 {
+                    throw new ArgumentException("Some message", "testParam");
+                 };
+                 
+                 AssertException&lt;ArgumentException&gt;.IsThrownForParameter(testFunction, "testParam");
+              </code>
+            </example>
+        </member>
+        <member name="T:Gtm.TestUtilities.DataContractSerialization">
+            <summary>
+            This class can be used to test the data contract on a given class through serialization.
+            </summary>
+        </member>
+        <member name="M:Gtm.TestUtilities.DataContractSerialization.GetDeserializedInstance``1(``0)">
+            <summary>
+            Test method to serialize and deserialize the <paramref name="instanceForSerialization"/>.
+            </summary>
+            <typeparam name="T">The type of the class to test.</typeparam>
+            <example>
+              <code>
+              <![CDATA[
+                 public void ShouldSerializeCorrectly()
+                 {
+                    // Arrange
+                    var myType = new MyType("testParam");
+                    
+                    // Act
+                    var deserialized = DataContractSerialization.GetDeserializedInstance<MyType>(myType);
+                    
+                    // Assert
+                    Assert.AreEqual(myType.MyParam, deserialized.MyParam, "MyParam not deserialized properly.");
+                 }
+              ]]>
+              </code>
+            </example>
+            <exception cref="T:System.Runtime.Serialization.InvalidDataContractException">Thrown if data contract is invalid.</exception>
+            <exception cref="T:System.Runtime.Serialization.SerializationException">Thrown if data contract could not be serialized.</exception>
+        </member>
+        <member name="T:Gtm.TestUtilities.ExpectedArgumentExceptionAttribute">
+            <summary>
+            An attribute for convenient use of tests expecting an <see cref="T:System.ArgumentException"/> to be thrown.
+            </summary>
+            <example>
+              <code>
+              <![CDATA[
+                 [TestMethod]
+                 [ExpectedArgumentException(typeof(ArgumentNullException), "parameterName")]
+                 public void ShouldThrowArgumentNullExceptionWhenNullParameterIsProvided()
+                 {
+                    TestMethodExpectingException(null);
+                 }
+                ]]>
+              </code>
+            </example>
+        </member>
+        <member name="M:Gtm.TestUtilities.ExpectedArgumentExceptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Create attribute indicating an <see cref="T:System.ArgumentException"/> is expected to be thrown on the test.
+            </summary>
+            <param name="exceptionType">
+            Type of exception expected.  It must be of type <see cref="T:System.ArgumentException"/> or a subtype.
+            </param>
+            <param name="parameterName">
+            The name of the parameter expected for <see cref="P:System.ArgumentException.Message"/> on the resulting <see cref="T:System.ArgumentException"/>.
+            </param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ExpectedArgumentExceptionAttribute.Verify(System.Exception)">
+            <summary>
+            When an exception is thrown from the test, this method verifies the exception is as expected.
+            </summary>
+            <param name="exception">The exception thrown during execution of the test.</param>
+        </member>
+        <member name="T:Gtm.TestUtilities.ListAsserter">
+            <summary>
+            Provides several extension methods on list-type interfaces for cleaner tests
+            by allowing assertions directly on the lists.
+            </summary>
+            <example>
+            <code>
+            [TestMethod()]
+            public void SingleItemListShouldReturnSingleItem()
+            {
+               var expected = new List&lt;string&gt; { "One" };
+               var actual = RunTestForListWithOneItem();
+            
+               actual.AssertIsEqualTo(expected);
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertIsEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Asserts that the <paramref name="actual"/> enumerable is equal to that of <paramref name="expected"/>.
+            </summary>
+            <typeparam name="T">Type of the enumerable entries.</typeparam>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertIsEqualTo``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Asserts that the <paramref name="actual"/> collection is equal to that of <paramref name="expected"/>.
+            </summary>
+            <typeparam name="T">Type of the collection entries.</typeparam>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertIsEqualTo``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Collections.Generic.IReadOnlyCollection{``0})">
+            <summary>
+            Asserts that the <paramref name="actual"/> collection is equal to that of <paramref name="expected"/>.
+            </summary>
+            <typeparam name="T">Type of the collection entries.</typeparam>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertIsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})">
+            <summary>
+            Asserts that the <paramref name="actual"/> list is equal to that of <paramref name="expected"/>.
+            </summary>
+            <typeparam name="T">Type of the list entries.</typeparam>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertIsEqualTo``1(System.Collections.Generic.IReadOnlyList{``0},System.Collections.Generic.IReadOnlyList{``0})">
+            <summary>
+            Asserts that the <paramref name="actual"/> list is equal to that of <paramref name="expected"/>.
+            </summary>
+            <typeparam name="T">Type of the list entries.</typeparam>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+        <member name="M:Gtm.TestUtilities.ListAsserter.AssertAreBothNullOrNotNull(System.Object,System.Object)">
+            <summary>
+            Asserts both are null or not null.
+            </summary>
+            <param name="actual">Actual value.</param>
+            <param name="expected">Expected value.</param>
+        </member>
+    </members>
+</doc>

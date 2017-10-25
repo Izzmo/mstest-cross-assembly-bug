@@ -1,0 +1,1077 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gtm.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Gtm.Common.Collections.DictionaryExtensions">
+            <summary>
+            Provides extension methods for common dictionary interfaces.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.DictionaryExtensions.GetValue``2(System.Collections.Generic.IReadOnlyDictionary{``0,``1},``0,``1)">
+            <summary>
+            Convenient method to retrieve the value for the given <paramref name="key"/> but allows
+            caller to specify <paramref name="defaultValue"/> if the key does not exist.
+            </summary>
+            <param name="dictionary">The instance of the dictionary on which to get the value.</param>
+            <param name="key">Key of the desired value.</param>
+            <param name="defaultValue">Value to return if <paramref name="key"/> does not exist.</param>
+            <returns>
+            Returns the value in the dictionary with key of <paramref name="key"/> if it exists.
+            Otherwise, it will return <paramref name="defaultValue"/>.
+            </returns>
+            <seealso cref="M:System.Collections.Generic.IReadOnlyDictionary`2.TryGetValue(`0,`1@)"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.DictionaryExtensions.GetValue``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Convenient method to retrieve the value for the given <paramref name="key"/> but allows
+            caller to specify <paramref name="defaultValue"/> if the key does not exist.
+            </summary>
+            <param name="dictionary">The instance of the dictionary on which to get the value.</param>
+            <param name="key">Key of the desired value.</param>
+            <param name="defaultValue">Value to return if <paramref name="key"/> does not exist.</param>
+            <returns>
+            Returns the value in the dictionary with key of <paramref name="key"/> if it exists.
+            Otherwise, it will return <paramref name="defaultValue"/>.
+            </returns>
+            <seealso cref="M:System.Collections.Generic.IDictionary`2.TryGetValue(`0,`1@)"/>
+        </member>
+        <member name="T:Gtm.Common.Collections.NonEmptyStringList">
+            <summary>
+            Provides a list of strings, but disallows <c>null</c> or empty.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.NonEmptyStringList.VerifyNewItem(System.String,System.String)">
+            <summary>
+            Verifies <paramref name="item"/> is not <c>null</c> or empty.
+            If it is, then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <param name="item">Item to be added to the list.</param>
+            <param name="paramName">Name of the parameter for the given method used.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="item"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="item"/> is empty.
+            </exception>
+        </member>
+        <member name="T:Gtm.Common.Collections.NonNullList`1">
+            <summary>
+            Provides a list of reference types, but disallows <c>null</c>.
+            </summary>
+            <typeparam name="T">The type to support in the list.</typeparam>
+        </member>
+        <member name="M:Gtm.Common.Collections.NonNullList`1.VerifyNewItem(`0,System.String)">
+            <summary>
+            Verifies <paramref name="item"/> is not <c>null</c>.  If it is, then
+            an <see cref="T:System.ArgumentNullException"/> is thrown.
+            </summary>
+            <param name="item">Item to be added to the list.</param>
+            <param name="paramName">Name of the parameter for the given method used.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="item"/> is <c>null</c>.
+            </exception>
+        </member>
+        <member name="T:Gtm.Common.Collections.ReadOnlyCollection`1">
+            <summary>
+            Provides a <see cref="T:System.Collections.Generic.IReadOnlyCollection`1"/> wrapper to <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <typeparam name="T">The type of elements in the collection.</typeparam>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyCollection`1.#ctor(System.Collections.Generic.ICollection{`0})">
+            <summary>
+            Instantiates a new instance of a wrapper to <paramref name="collection"/>.
+            </summary>
+            <param name="collection">The instance of <see cref="T:System.Collections.Generic.ICollection`1"/> to wrap.</param>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyCollection`1.GetEnumerator">
+            <summary>
+            Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this collection.
+            </summary>
+            <returns>
+            The <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this collection.
+            </returns>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets the <see cref="T:System.Collections.IEnumerator"/> for this collection.
+            </summary>
+            <returns>
+            The <see cref="T:System.Collections.IEnumerator"/> for this collection.
+            </returns>
+        </member>
+        <member name="P:Gtm.Common.Collections.ReadOnlyCollection`1.Count">
+            <summary>
+            The number of items in the collection.
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.Collections.ReadOnlyDictionary`2">
+            <summary>
+            Provides a <see cref="T:System.Collections.Generic.IReadOnlyDictionary`2"/> wrapper to <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            </summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyDictionary`2.#ctor(System.Collections.Generic.IDictionary{`0,`1})">
+            <summary>
+            Instantiates a new instance of a wrapper to <paramref name="dictionary"/>.
+            </summary>
+            <param name="dictionary">The instance of <see cref="T:System.Collections.Generic.IDictionary`2"/> to wrap.</param>
+        </member>
+        <member name="P:Gtm.Common.Collections.ReadOnlyDictionary`2.Item(`0)">
+            <summary>
+            Retrieves the value for the given <paramref name="key"/>.
+            </summary>
+            <param name="key">Key of the desired value.</param>
+            <returns>
+            The value of the provided <paramref name="key"/>.
+            </returns>
+        </member>
+        <member name="P:Gtm.Common.Collections.ReadOnlyDictionary`2.Keys">
+            <summary>
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the keys used in the dictionary.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.Collections.ReadOnlyDictionary`2.Values">
+            <summary>
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the values used in the dictionary.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyDictionary`2.ContainsKey(`0)">
+            <summary>
+            Indicates whether the provided <paramref name="key"/> exists.
+            </summary>
+            <param name="key">The key to check for existence.</param>
+            <returns>
+            <c>true</c> if <paramref name="key"/> exists, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyDictionary`2.TryGetValue(`0,`1@)">
+            <summary>
+            Safely retrieves a value without throwing an exception if <paramref name="key"/> does not exist.
+            </summary>
+            <param name="key">Key of the desired value.</param>
+            <param name="value">The value for <paramref name="key"/> if found.</param>
+            <returns>
+            <c>true</c> if <paramref name="key"/> existed and <paramref name="value"/> was populated,
+            <c>false</c> otherwise.
+            </returns>
+            <seealso cref="M:System.Collections.Generic.IReadOnlyDictionary`2.TryGetValue(`0,`1@)"/>
+            <seealso cref="M:Gtm.Common.Collections.ReadOnlyDictionary`2.GetValue(`0,`1)"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyDictionary`2.GetValue(`0,`1)">
+            <summary>
+            Convenient method to retrieve the value for the given <paramref name="key"/> but allows
+            caller to specify <paramref name="defaultValue"/> if the key does not exist.
+            </summary>
+            <param name="key">Key of the desired value.</param>
+            <param name="defaultValue">Value to return if <paramref name="key"/> does not exist.</param>
+            <returns>
+            Returns the value in the dictionary with key of <paramref name="key"/> if it exists.
+            Otherwise, it will return <paramref name="defaultValue"/>.
+            </returns>
+            <seealso cref="M:Gtm.Common.Collections.ReadOnlyDictionary`2.TryGetValue(`0,`1@)"/>
+        </member>
+        <member name="T:Gtm.Common.Collections.ReadOnlyList`1">
+            <summary>
+            Provides a <see cref="T:System.Collections.Generic.IReadOnlyList`1"/> wrapper to <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <typeparam name="T">The type of elements in the list.</typeparam>
+        </member>
+        <member name="M:Gtm.Common.Collections.ReadOnlyList`1.#ctor(System.Collections.Generic.IList{`0})">
+            <summary>
+            Instantiates a new instance of a wrapper to <paramref name="list"/>.
+            </summary>
+            <param name="list">The instance of <see cref="T:System.Collections.Generic.IList`1"/> to wrap.</param>
+        </member>
+        <member name="P:Gtm.Common.Collections.ReadOnlyList`1.Item(System.Int32)">
+            <summary>
+            Returns the item from the list at the index indicated by <paramref name="index"/>.
+            </summary>
+            <param name="index">The index of the desired item.</param>
+            <returns>
+            The item from the list at the index indicated by <paramref name="index"/>.
+            </returns>
+        </member>
+        <member name="T:Gtm.Common.Collections.ConstrainedList`1">
+            <summary>
+            Provides a list of type <typeparamref name="T"/> with ability for
+            subtypes to easily constraint additions or updates.
+            </summary>
+            <typeparam name="T">Type of the list items.</typeparam>
+        </member>
+        <member name="P:Gtm.Common.Collections.ConstrainedList`1.Count">
+            <summary>
+            See <see cref="P:System.Collections.Generic.ICollection`1.Count"/>
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.Collections.ConstrainedList`1.IsReadOnly">
+            <summary>
+            See <see cref="P:System.Collections.Generic.ICollection`1.IsReadOnly"/>.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.VerifyNewItem(`0,System.String)">
+            <summary>
+            Verifies new item, throwing exceptions as appropriate.
+            </summary>
+            <param name="item">The item to be added or updated to the list.</param>
+            <param name="paramName">
+            The name of the parameter used.  This is helpful for subtypes to throw <see cref="T:System.ArgumentException"/>.
+            </param>
+        </member>
+        <member name="P:Gtm.Common.Collections.ConstrainedList`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the item at the given <paramref name="index"/>."/>
+            </summary>
+            <param name="index">The index at which the item should be retrieved or updated.</param>
+            <returns>
+            Returns the item at the given <paramref name="index"/>.
+            </returns>
+            <exception cref="T:System.ArgumentException">Thrown if verification fails.</exception>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.Add(`0)">
+            <summary>
+            Adds the given <paramref name="item"/> to the list, verifying it
+            based on the verification function provided in the constructor.
+            </summary>
+            <param name="item">Item to add to the list.</param>
+            <exception cref="T:System.ArgumentException">Thrown if verification fails.</exception>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.Clear">
+            <summary>
+            See <see cref="M:System.Collections.Generic.ICollection`1.Clear"/>.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.Contains(`0)">
+            See <see cref="M:System.Collections.Generic.ICollection`1.Contains(`0)"/>.
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.CopyTo(`0[],System.Int32)">
+            See <see cref="M:System.Collections.Generic.ICollection`1.CopyTo(`0[],System.Int32)"/>.
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.GetEnumerator">
+            See <see cref="M:System.Collections.Generic.IEnumerable`1.GetEnumerator"/>.
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.IndexOf(`0)">
+            See <see cref="M:System.Collections.Generic.IList`1.IndexOf(`0)"/>.
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.Insert(System.Int32,`0)">
+            <summary>
+            See <see cref="M:System.Collections.Generic.IList`1.Insert(System.Int32,`0)"/>.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.Remove(`0)">
+            <summary>
+            See <see cref="M:System.Collections.Generic.ICollection`1.Remove(`0)"/>.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.RemoveAt(System.Int32)">
+            <summary>
+            See <see cref="M:System.Collections.Generic.IList`1.RemoveAt(System.Int32)"/>.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ConstrainedList`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            See <see cref="M:System.Collections.IEnumerable.GetEnumerator"/>
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.Collections.VerifiedList`1">
+            <summary>
+            Provides a list of type <typeparamref name="T"/> ensuring that any item added
+            is verified using the provided function.
+            </summary>
+            <typeparam name="T">Type of the list items.</typeparam>
+        </member>
+        <member name="M:Gtm.Common.Collections.VerifiedList`1.#ctor(System.Func{`0,System.Boolean})">
+            <summary>
+            Creates a new instance of <see cref="T:Gtm.Common.Collections.VerifiedList`1"/> with the <paramref name="isVerifiedFunction"/>
+            to use when verifying new items.
+            </summary>
+            <param name="isVerifiedFunction">The verification function to use when creating new items.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="isVerifiedFunction"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Gtm.Common.Collections.VerifiedList`1.#ctor(System.Func{`0,System.Boolean},System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:Gtm.Common.Collections.VerifiedList`1"/> with the <paramref name="isVerifiedFunction"/>
+            to use when verifying new items and uses the <paramref name="verificationFailureMessage"/> as the
+            <see cref="P:System.ArgumentException.Message"/> on the resulting <see cref="T:System.ArgumentException"/>.
+            </summary>
+            <param name="isVerifiedFunction">The verification function to use when creating new items.</param>
+            <param name="verificationFailureMessage">
+            The <see cref="P:System.ArgumentException.Message"/> on the resulting <see cref="T:System.ArgumentException"/> if verification fails.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="isVerifiedFunction"/> or <paramref name="verificationFailureMessage"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArithmeticException">Thrown if <paramref name="verificationFailureMessage"/> is empty.</exception>
+        </member>
+        <member name="M:Gtm.Common.Collections.VerifiedList`1.VerifyNewItem(`0,System.String)">
+            <summary>
+            Verifies new item, throwing exceptions as appropriate.
+            </summary>
+            <param name="item"></param>
+            <param name="paramName"></param>
+        </member>
+        <member name="T:Gtm.Common.Collections.ListComparer">
+            <summary>
+            A utility class to compare lists.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <remarks>
+            Same as <see cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})"/> but uses
+            <see cref="T:System.Collections.Generic.EqualityComparer`1"/>.<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>
+            for the equality comparison.
+            </remarks>
+            <seealso cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <typeparam name="T">Type of elements in <paramref name="list"/> and <paramref name="other"/>.</typeparam>
+            <param name="list">The list of values to which to compare.</param>
+            <param name="other">The other list of values to use in the comparison.</param>
+            <param name="isEqualFunc">The function to use in determining equality.</param>
+            <returns>
+            If both lists are <c>null</c> or all elements are equal <c>true</c> is returned.
+            Otherwise, <c>false</c> is returned.
+            </returns>
+            <remarks>
+            If both arguments are <c>null</c>, it returns true.  Additionally, the elements are compared in the same order they appear.
+            Otherwise, each element is compared using the default comparer of
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <remarks>
+            Same as <see cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0},System.Func{``0,``0,System.Boolean})"/> but uses
+            <see cref="T:System.Collections.Generic.EqualityComparer`1"/>.<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>
+            for the equality comparison.
+            </remarks>
+            <seealso cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Collections.Generic.IReadOnlyCollection{``0})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <remarks>
+            Same as <see cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Collections.Generic.IReadOnlyCollection{``0},System.Func{``0,``0,System.Boolean})"/> but uses
+            <see cref="T:System.Collections.Generic.EqualityComparer`1"/>.<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>
+            for the equality comparison.
+            </remarks>
+            <seealso cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Collections.Generic.IReadOnlyCollection{``0})"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <typeparam name="T">Type of elements in <paramref name="list"/> and <paramref name="other"/>.</typeparam>
+            <param name="list">The list of values to which to compare.</param>
+            <param name="other">The other list of values to use in the comparison.</param>
+            <param name="isEqualFunc">The function to use in determining equality.</param>
+            <returns>
+            If both lists are <c>null</c> or all elements are equal <c>true</c> is returned.
+            Otherwise, <c>false</c> is returned.
+            </returns>
+            <remarks>
+            If both arguments are <c>null</c>, it returns true.  Additionally, the elements are compared in the same order they appear.
+            Otherwise, each element is compared using the default comparer of
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyCollection{``0},System.Collections.Generic.IReadOnlyCollection{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <typeparam name="T">Type of elements in <paramref name="list"/> and <paramref name="other"/>.</typeparam>
+            <param name="list">The list of values to which to compare.</param>
+            <param name="other">The other list of values to use in the comparison.</param>
+            <param name="isEqualFunc">The function to use in determining equality.</param>
+            <returns>
+            If both lists are <c>null</c> or all elements are equal <c>true</c> is returned.
+            Otherwise, <c>false</c> is returned.
+            </returns>
+            <remarks>
+            If both arguments are <c>null</c>, it returns true.  Additionally, the elements are compared in the same order they appear.
+            Otherwise, each element is compared using the default comparer of
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <remarks>
+            Same as <see cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{``0,``0,System.Boolean})"/> but uses
+            <see cref="T:System.Collections.Generic.EqualityComparer`1"/>.<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>
+            for the equality comparison.
+            </remarks>
+            <seealso cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyList{``0},System.Collections.Generic.IReadOnlyList{``0})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <remarks>
+            Same as <see cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{``0,``0,System.Boolean})"/> but uses
+            <see cref="T:System.Collections.Generic.EqualityComparer`1"/>.<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>
+            for the equality comparison.
+            </remarks>
+            <seealso cref="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0})"/>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IList{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <typeparam name="T">Type of elements in <paramref name="list"/> and <paramref name="other"/>.</typeparam>
+            <param name="list">The list of values to which to compare.</param>
+            <param name="other">The other list of values to use in the comparison.</param>
+            <param name="isEqualFunc">The function to use in determining equality.</param>
+            <returns>
+            If both lists are <c>null</c> or all elements are equal <c>true</c> is returned.
+            Otherwise, <c>false</c> is returned.
+            </returns>
+            <remarks>
+            If both arguments are <c>null</c>, it returns true.  Additionally, the elements are compared in the same order they appear.
+            Otherwise, each element is compared using the default comparer of
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Collections.ListComparer.IsEqualTo``1(System.Collections.Generic.IReadOnlyList{``0},System.Collections.Generic.IReadOnlyList{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>
+            Determines whether the list is equal to <paramref name="other"/> based on the contents.
+            </summary>
+            <typeparam name="T">Type of elements in <paramref name="list"/> and <paramref name="other"/>.</typeparam>
+            <param name="list">The list of values to which to compare.</param>
+            <param name="other">The other list of values to use in the comparison.</param>
+            <param name="isEqualFunc">The function to use in determining equality.</param>
+            <returns>
+            If both lists are <c>null</c> or all elements are equal <c>true</c> is returned.
+            Otherwise, <c>false</c> is returned.
+            </returns>
+            <remarks>
+            If both arguments are <c>null</c>, it returns true.  Additionally, the elements are compared in the same order they appear.
+            Otherwise, each element is compared using the default comparer of
+            </remarks>
+        </member>
+        <member name="T:Gtm.Common.Email">
+            <summary>
+            Type that holds an email, validating it adheres to the proper format.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Email.#ctor(System.String)">
+            <summary>
+            Create an email with the given type.
+            </summary>
+            <param name="value">The email address.</param>
+        </member>
+        <member name="M:Gtm.Common.Email.op_Implicit(System.String)~Gtm.Common.Email">
+            <summary>
+            Implicitly convert from a string to an email.
+            </summary>
+            <param name="value">The email address in <see cref="T:System.String"/> form.</param>
+        </member>
+        <member name="T:Gtm.Common.Data.DataException">
+            <summary>
+            An exception type indicating a data issue was detected.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.Data.DataException.RecordType">
+            <summary>
+            The type of the record, such as Customer or Order.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.Data.DataException.RecordId">
+            <summary>
+            The identifier for the record.  If there are multiple identifiers, they are combined into a single string representation.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.Data.DataException.RecordIdentifiers">
+            <summary>
+            A list of identifiers, supporting a composite key.  For example, and order line can have two identiers:
+            Order Number and Line Number.  Each identifer is a key/value pair where key is the name of the identifier.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.#ctor(System.String,System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String},System.Exception)">
+            <summary>
+            Creates a new instance from a subtype.
+            </summary>
+            <param name="message">The message for the exception.</param>
+            <param name="recordType">The record type.</param>
+            <param name="recordIdentifiers">The identifiers.</param>
+            <param name="innerException">A possible inner exception.</param>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.#ctor(System.String,System.String,System.String[])">
+            <summary>
+            Creates a new instance from a subtype.
+            </summary>
+            <param name="message">The message for the exception.</param>
+            <param name="recordType">The record type.</param>
+            <param name="recordIdentifiers">The identifiers listed in pairs: <c>Name1, Value1, Name2, Value2.</c></param>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Populates fields from the given <paramref name="info"/> to support deserialization.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.GenerateRecordId(System.String[])">
+            <summary>
+            Generates a single-string representation from an array of identifier name/value pairs.
+            This method returns the same value used as the property <see cref="P:Gtm.Common.Data.DataException.RecordId"/> and
+            is shared with subtypes for convenience.
+            </summary>
+            <param name="identifiers">
+            Array of name/value pairs of the identifiers: <c>Name1, Value1, Name2, Value2, ...</c>
+            </param>
+            <returns>
+            A single-string representation of the identifiers.
+            </returns>
+        </member>
+        <member name="M:Gtm.Common.Data.DataException.GenerateRecordId(System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            Generates a single-string representation from a dictionary of name/value pairs.
+            This method returns the same value used as the property <see cref="P:Gtm.Common.Data.DataException.RecordId"/> and
+            is shared with subtypes for convenience.
+            </summary>
+            <param name="identifiers">
+            Array of name/value pairs of the identifiers: <c>Name1, Value1, Name2, Value2, ...</c>
+            </param>
+            <returns>
+            A single-string representation of the identifiers.
+            </returns>
+        </member>
+        <member name="T:Gtm.Common.Data.DuplicateRecordException">
+            <summary>
+            An exception that is thrown if an attempt was made to create a duplicate record.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Data.DuplicateRecordException.#ctor(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String},System.Exception)">
+            <summary>
+            Creates an instance of the exception.
+            </summary>
+            <param name="recordType">A label for the type of record, such as Customer, Order, etc.</param>
+            <param name="recordIdentifiers">A dictionary of name value pairs of the identifiers.</param>
+            <param name="innerException">An optional inner exception to be provided.</param>
+        </member>
+        <member name="M:Gtm.Common.Data.DuplicateRecordException.#ctor(System.String,System.String[])">
+            <summary>
+            Creates an instance of the exception.
+            </summary>
+            <param name="recordType">A label for the type of record, such as Customer, Order, etc.</param>
+            <param name="recordIdentifiers">An array of name value pairs for the identifiers.</param>
+        </member>
+        <member name="M:Gtm.Common.Data.DuplicateRecordException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Creates an instance of the exception.
+            </summary>
+            <param name="recordType">A label for the type of record, such as Customer, Order, etc.</param>
+            <param name="recordId">The value uniquely identifying the record.</param>
+            <param name="innerException">An optional inner exception to be provided.</param>
+        </member>
+        <member name="M:Gtm.Common.Data.DuplicateRecordException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Gtm.Common.Data.RecordNotFoundException">
+            <summary>
+            Thrown when a record is not found in the system.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.Data.RecordNotFoundException.#ctor(System.String,System.Collections.Generic.IReadOnlyDictionary{System.String,System.String})">
+            <summary>
+            Creates a new instance which supports multiple identifiers (composite key).
+            </summary>
+            <param name="recordType">Type of the record, such as Customer, Order, etc.</param>
+            <param name="recordIdentifiers">Identifier(s) for the record that was not found.</param>
+            <remarks>
+            <paramref name="recordIdentifiers"/> is provided in a paired list: Name1, Value1, Name2, Value2, ...
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Data.RecordNotFoundException.#ctor(System.String,System.String[])">
+            <summary>
+            Creates a new instance which supports multiple identifiers (composite key).
+            </summary>
+            <param name="recordType">Type of the record, such as Customer, Order, etc.</param>
+            <param name="recordIdentifiers">An array of name value pairs for the identifiers.</param>
+            <remarks>
+            <paramref name="recordIdentifiers"/> is provided in a paired list: Name1, Value1, Name2, Value2, ...
+            </remarks>
+        </member>
+        <member name="M:Gtm.Common.Data.RecordNotFoundException.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of the exception.
+            </summary>
+            <param name="recordType">A label for the type of record, such as Customer, Order, etc.</param>
+            <param name="recordId">The value uniquely identifying the record.</param>
+        </member>
+        <member name="M:Gtm.Common.Data.RecordNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialization constructor.
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:Gtm.Common.FeatureToggleManager">
+            <summary>
+            Checks for the setting of feature toggles, both from intialization as well as overrides.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.FeatureToggleManager.#ctor(Gtm.Common.IFeatureToggleRepository)">
+            <summary>
+            Sets up a feature toggle manager.
+            </summary>
+            <param name="dataStore">Can be <c>null</c>.</param>
+        </member>
+        <member name="M:Gtm.Common.FeatureToggleManager.SetFeatureToggles(System.Collections.Generic.Dictionary{System.String,System.Boolean})">
+            <summary>
+            Sets the feature toggle sources
+            </summary>
+            <param name="defaultToggles">Cannot be <c>null</c>.</param>
+        </member>
+        <member name="M:Gtm.Common.FeatureToggleManager.RetrieveOverrideFeatureToggles">
+            <summary>
+            Retrieves a synthesized IDictionary of both standard and session overriden feature toggles.
+            </summary>
+            <returns>A IDictionary of session specific feature toggles.</returns>
+            <example>
+            Input:
+              OverrideToggles: feature_toggle_b="1", feature_toggle_x="0", feature_toggle_z="1"
+              DefaultToggles: { "b": false }
+            
+            Output:
+              FeatureToggleManager.IsFeatureEnabled("b") will return <c>false</c>.
+              FeatureToggleManager.IsFeatureEnabled("x") will return <c>false</c>.
+              FeatureToggleManager.IsFeatureEnabled("doesnt_exist") will return <c>false</c>.
+              FeatureToggleManager.IsFeatureEnabled("z") will return <c>true</c>.
+            </example>
+        </member>
+        <member name="M:Gtm.Common.FeatureToggleManager.IsFeatureEnabled(System.String)">
+            <summary>
+            Checks whether a feature toggle is set based on overridden feature toggles.
+            </summary>
+            <param name="toggleName">Cannot be <c>""</c>.</param>
+            <returns><c>true</c> if toggle is set to true. Otherwise returns <c>false</c>.</returns>
+        </member>
+        <member name="T:Gtm.Common.FriendlyUrlGenerator">
+            <summary>
+            Generates a URL string that is SEO-friendly.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.FriendlyUrlGenerator.Generate(System.String)">
+            <summary>
+            Generate an SEO-friendly URL string.
+            </summary>
+            <param name="url">Any string. Empty strings allowed.</param>
+            <returns>A alpha-numeric string with dashes, all lowercase.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if URL string given is null.</exception>
+        </member>
+        <member name="T:Gtm.Common.IFeatureToggleRepository">
+            <summary>
+            Feature Toggle Repository
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.IFeatureToggleRepository.SetFeatureToggle(System.String)">
+            <summary>
+            Set a feature toggle to on.
+            </summary>
+            <param name="toggleName"></param>
+        </member>
+        <member name="M:Gtm.Common.IFeatureToggleRepository.ClearFeatureToggle(System.String)">
+            <summary>
+            Clear a feature toggle to off.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.IFeatureToggleRepository.RetrieveFeatureToggles">
+            <summary>
+            Retrieve all available feature toggles.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gtm.Common.PatternedStringType">
+            <summary>
+            Provides an immutable type that is simply matching a <see cref="T:System.String"/> to a <see cref="T:System.Text.RegularExpressions.Regex"/> pattern.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.#ctor(System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Creates a new instance with the given value and pattern.
+            </summary>
+            <param name="value">The value of this instance.</param>
+            <param name="pattern">The pattern for the type.</param>
+            <param name="options">Optional options for validating the pattern.</param>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.op_Implicit(Gtm.Common.PatternedStringType)~System.String">
+            <summary>
+            Implicitly convert this type to a string.
+            </summary>
+            <param name="obj">Reference to the instance to be converted.</param>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.op_Equality(Gtm.Common.PatternedStringType,Gtm.Common.PatternedStringType)">
+            <summary>
+            Overrides the '==' operator.
+            </summary>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.op_Inequality(Gtm.Common.PatternedStringType,Gtm.Common.PatternedStringType)">
+            <summary>
+            Overrides the '!=' operator.
+            </summary>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.Equals(System.Object)">
+            <summary>
+            Overrides the <see cref="M:System.Object.Equals(System.Object)"/> method.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.Equals(Gtm.Common.PatternedStringType)">
+            <summary>
+            Implements <see cref="M:System.IEquatable`1.Equals(`0)"/>.
+            </summary>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.GetHashCode">
+            <summary>
+            Overrides <see cref="M:System.Object.GetHashCode"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.PatternedStringType.ToString">
+            <summary>
+            Overrides <see cref="M:System.Object.ToString"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Gtm.Common.VersionInfo">
+            <summary>
+            Contains information about when and whom a resource was modified.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.VersionInfo.By">
+            <summary>
+            The person who modified the resource.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.VersionInfo.On">
+            <summary>
+            The time at which the resource was modified.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.#ctor(System.String)">
+            <summary>
+            Creates an instance to capture the person who created or modified a resource.
+            The current date and time is used for <see cref="P:Gtm.Common.VersionInfo.On"/>;
+            </summary>
+            <param name="by">Who or what modified the resource.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="by"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="by"/> is empty.
+            </exception>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.#ctor(System.String,System.DateTimeOffset)">
+            <summary>
+            Creates an instance to capture the person and time a resource was created or modified.
+            </summary>
+            <param name="by">Who or what modified the resource.</param>
+            <param name="on">The date and time when a resource was modified.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="by"/> is <c>null</c>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="by"/> is empty.
+            </exception>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.op_Equality(Gtm.Common.VersionInfo,Gtm.Common.VersionInfo)">
+            <summary>
+            Overrides == operator.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.op_Inequality(Gtm.Common.VersionInfo,Gtm.Common.VersionInfo)">
+            <summary>
+            Overrides != operator.
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.Equals(System.Object)">
+            <summary>
+            Overrides default behavior of <see cref="T:System.Object"/>.<see cref="M:System.Object.Equals(System.Object)"/>
+            such that the contents are compared rather than the references.
+            </summary>
+            <param name="obj">The instance to which to compare.</param>
+            <returns>
+            <c>true</c> if <paramref name="obj"/> is considered equal to this instance, <c>false</c> otherwise.
+            </returns>
+            <seealso cref="M:Gtm.Common.VersionInfo.Equals(Gtm.Common.VersionInfo)"/>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.Equals(Gtm.Common.VersionInfo)">
+            <summary>
+            Indicates whether an instance of <see cref="T:Gtm.Common.VersionInfo"/> is equal to another.
+            </summary>
+            <param name="other">The instance to which to compare.</param>
+            <returns>
+            <c>true</c> if <paramref name="other"/> is considered equal to this instance, <c>false</c> otherwise.
+            </returns>
+        </member>
+        <member name="M:Gtm.Common.VersionInfo.GetHashCode">
+            <summary>
+            Overrides default behavior of <see cref="T:System.Object"/>.<see cref="M:System.Object.GetHashCode"/>.
+            </summary>
+            <returns>A calculated hashcode based on the contents.</returns>
+        </member>
+        <member name="T:Gtm.Common.ICreatable">
+            <summary>
+            Contains information on when a resource was created.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.ICreatable.Created">
+            <summary>
+            When and whom created a resource.
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.IVersionable">
+            <summary>
+            Contains information on when a resource was versioned.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.IVersionable.Version">
+            <summary>
+            Unique version to indentify this state of the resource.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.IVersionable.Versioned">
+            <summary>
+            When and whom updated a resource.
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.IUpdatable">
+            <summary>
+            Contains information on when a resource was updated.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.IUpdatable.Updated">
+            <summary>
+            When and whom updated a resource.
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.IIdentifiable">
+            <summary>
+            A uniquely generated key to identify a resource.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.IIdentifiable.Identifier">
+            <summary>
+            The unique identifier for a resource.
+            </summary>
+        </member>
+        <member name="T:Gtm.Common.ParameterVerifier">
+            <summary>
+            Easily verify the integrity of method parameters.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Verifies given string value is not null or empty.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if value empty.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyMatchesPattern(System.String,System.String,System.String,System.Text.RegularExpressions.RegexOptions)">
+            <summary>
+            Verifies given string value is not null and matches the given <paramref name="pattern"/>.
+            </summary>
+            <param name="value">Value of the parameter to verify.</param>
+            <param name="pattern">Regular expression to match against.</param>
+            <param name="paramName">Name of the parameter to verify.</param>
+            <param name="options">
+            Options for the pattern matching.  <see cref="T:System.Text.RegularExpressions.RegexOptions"/> for available options.
+            The default is <see cref="F:System.Text.RegularExpressions.RegexOptions.IgnoreCase"/>.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> or <paramref name="pattern"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> does not match <paramref name="pattern"/>.
+            </exception>
+            <exception cref="T:System.Text.RegularExpressions.RegexMatchTimeoutException">Thrown if a time-out occurred.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNullOrEmpty``1(System.Collections.Generic.ICollection{``0},System.String)">
+            <summary>
+            Verifies given generic collection is not null or empty.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if collection is null or length is zero.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNullOrEmpty(System.Collections.ICollection,System.String)">
+            <summary>
+            Verifies given collection is not null or empty.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if collection is null or length is zero.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNullOrEmpty``1(``0[],System.String)">
+            <summary>
+            Verifies given array is not null or empty.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if array is null or length is zero.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNullOrEmpty(System.String[],System.String,System.Boolean)">
+            <summary>
+            Verifies given array is not null or empty.
+            </summary>
+            <param name="values"></param>
+            <param name="paramName"></param>
+            <param name="emptyStringIsValid">Will check each value in the array to see if it is an empty string.</param>
+            <exception cref="T:System.ArgumentException">Throws if array is null or length is zero.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotNull(System.Object,System.String)">
+            <summary>
+            Verifies given object value is not null.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if object value is null.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsNotEmpty(System.Guid,System.String)">
+            <summary>
+            Verifies given <see cref="T:System.Guid"/> is not <see cref="F:System.Guid.Empty"/>.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if <see cref="T:System.Guid"/> value is <see cref="F:System.Guid.Empty"/>.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsAtLeast``1(``0,``0,System.String)">
+            <summary>
+            Verifies given value is at least <paramref name="minimum"/>.
+            </summary>
+            <param name="value">The value to test.</param>
+            <param name="minimum">The minimum allowed value.</param>
+            <param name="paramName">Name of the parameter to be tested.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown if <paramref name="value"/> is less than <paramref name="minimum"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsAtMost``1(``0,``0,System.String)">
+            <summary>
+            Verifies given value is at most <paramref name="maximum"/>.
+            </summary>
+            <param name="value">The value to test.</param>
+            <param name="maximum">The maximum allowed value.</param>
+            <param name="paramName">Name of the parameter to be tested.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown if <paramref name="value"/> is greater than <paramref name="maximum"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsBetween``1(``0,``0,``0,System.String)">
+            <summary>
+            Verifies given value is within a given range.
+            </summary>
+            <param name="value">The value to test.</param>
+            <param name="minimum">The minimum allowed value.</param>
+            <param name="maximum">The maximum allowed value.</param>
+            <param name="paramName">Name of the parameter to be tested.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Thrown if <paramref name="value"/> is less than <paramref name="minimum"/> or greater than <paramref name="maximum"/>.
+            </exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsTrue(System.Boolean,System.String)">
+            <summary>
+            Verifies given value is true.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <exception cref="T:System.ArgumentException">Throws if <paramref name="value"/> is not true.</exception>
+        </member>
+        <member name="M:Gtm.Common.ParameterVerifier.VerifyIsTrue(System.Boolean,System.String,System.String)">
+            <summary>
+            Verifies given value is true.
+            </summary>
+            <param name="value"></param>
+            <param name="paramName"></param>
+            <param name="message"></param>
+            <exception cref="T:System.ArgumentException">Throws if <paramref name="value"/> is not true with <paramref name="message"/>.</exception>
+        </member>
+        <member name="T:Gtm.Common.WebApi.BadRequestMessage">
+            <summary>
+            An HTTP 400 Bad Request Response Message to output helpful information in the HTTP Response.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.WebApi.BadRequestMessage.Title">
+            <summary>
+            A title summarizing why the request is bad.
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.WebApi.BadRequestMessage.InvalidParams">
+            <summary>
+            A list of invalid parameters.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.WebApi.BadRequestMessage.#ctor(System.String)">
+            <summary>
+            Sets up a new BadRequestMessage.
+            </summary>
+            <remarks>The <see cref="P:Gtm.Common.WebApi.BadRequestMessage.InvalidParams"/> must be set for each invalid parameter after class is initialized.</remarks>
+            <param name="title">The title of the bad request.</param>
+        </member>
+        <member name="M:Gtm.Common.WebApi.BadRequestMessage.#ctor(System.String,System.String)">
+            <summary>
+            Setup a bad request message with a single bad parameter.
+            </summary>
+            <remarks>Will set the <see cref="P:Gtm.Common.WebApi.BadRequestMessage.Title"/> of the BadRequest to "Invalid {paramName}"</remarks>
+            <param name="parameterName">The name of the invalid parameter</param>
+            <param name="parameterReason">The reason why the parameter is invalid</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="parameterName"/> or <paramref name="parameterReason"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="parameterName"/> is empty.</exception>
+        </member>
+        <member name="T:Gtm.Common.WebApi.BadRequestMessage.InvalidParameter">
+            <summary>
+            Messaging structure for an invalid parameter
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.WebApi.BadRequestMessage.InvalidParameter.Name">
+            <summary>
+            The name of the parameter
+            </summary>
+        </member>
+        <member name="P:Gtm.Common.WebApi.BadRequestMessage.InvalidParameter.Reason">
+            <summary>
+            The reason why the parameter is invalid.
+            </summary>
+        </member>
+        <member name="M:Gtm.Common.WebApi.BadRequestMessage.InvalidParameter.#ctor(System.String,System.String)">
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="parameterName"/> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="parameterName"/> is empty.</exception>
+        </member>
+    </members>
+</doc>
